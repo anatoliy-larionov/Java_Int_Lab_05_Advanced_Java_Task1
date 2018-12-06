@@ -19,19 +19,20 @@ public class MyQueue {
             try {
                 wait();
             } catch (InterruptedException e) {
-                log.error("Поток прерван!");
-            }
-            if (countRequests < MAXIMUM_REQUESTS) {
-                countRequests++;
-                hotel.setId(this.countRequests);
-                hotelList.add(hotel);
-                log.info("Отправлено: {}  вместимость: {}", hotel, hotelList.size());
-                if (this.countRequests == MAXIMUM_REQUESTS) {
-                    log.info("Очередь закончена!!!");
-                }
-                notifyAll();
+                Thread.currentThread().interrupt();
             }
         }
+        if (countRequests < MAXIMUM_REQUESTS) {
+            countRequests++;
+            hotel.setId(this.countRequests);
+            hotelList.add(hotel);
+            log.info("Отправлено: {}  вместимость: {}", hotel, hotelList.size());
+            if (this.countRequests == MAXIMUM_REQUESTS) {
+                log.info("Очередь закончена!!!");
+            }
+            notifyAll();
+        }
+
     }
 
     public synchronized Hotel getId() {
@@ -42,7 +43,7 @@ public class MyQueue {
                 try {
                     wait();
                 } catch (InterruptedException e) {
-                    log.error("Поток прерван!");
+                    Thread.currentThread().interrupt();
                 }
             }
         }

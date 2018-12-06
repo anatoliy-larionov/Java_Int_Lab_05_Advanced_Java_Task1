@@ -1,6 +1,7 @@
 package hotel;
 
 public class Main {
+
     public static void main(String[] args) {
         MyQueue myQueue = new MyQueue();
         for (int i = 0; i < 3; i++) {

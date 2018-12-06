@@ -17,7 +17,7 @@ public class Booker implements Runnable {
             try {
                 Thread.sleep(TIME_SLEEP);
             } catch (InterruptedException e) {
-                log.error("Поток прерван!");
+                Thread.currentThread().interrupt();
             }
             log.info("Обработано: {} ", hotel);
         }
